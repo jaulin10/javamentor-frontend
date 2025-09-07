@@ -1,70 +1,387 @@
-# Getting Started with Create React App
+JavaMentor
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern Java learning platform with an AI assistant, designed to help developers progress from beginner to expert.
 
-## Available Scripts
+Table of Contents
 
-In the project directory, you can run:
+Overview
 
-### `npm start`
+Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Architecture
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Technologies Used
 
-### `npm test`
+Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Project Structure
 
-### `npm run build`
+Demo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Development
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Overview
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+JavaMentor is a full-stack web application that combines a conversational AI assistant with a hands-on exercise platform for learning Java. The project includes a robust FastAPI backend and a modern React frontend with smooth animations and a glassmorphism design.
 
-### `npm run eject`
+Key Features:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Conversational AI assistant tailored to the user’s level
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Interactive exercise system with multiple difficulty levels
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Modern UI with Framer Motion animations
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Complete JWT authentication
 
-## Learn More
+Multilingual support (French/English)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Responsive design optimized for mobile and desktop
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Features
+JavaMentor AI Assistant
 
-### Code Splitting
+Personalized conversations based on user level (beginner, intermediate, advanced)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Explanations of Java concepts with code examples
 
-### Analyzing the Bundle Size
+Adaptive exercise generation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Code correction and feedback
 
-### Making a Progressive Web App
+Multi-conversation history
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Exercise System
 
-### Advanced Configuration
+Exercise catalog organized by difficulty and topic
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Advanced filtering and search
 
-### Deployment
+Covers variables, loops, OOP, collections, exceptions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Points system and progression tracking
 
-### `npm run build` fails to minify
+User Management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Secure authentication with JWT
+
+User profiles with statistics
+
+Personalized progress tracking
+
+Learning level management
+
+Modern Interface
+
+Glassmorphism design with advanced visual effects
+
+Smooth animations and micro-interactions
+
+Multilingual support (FR/EN)
+
+Responsive and accessible UI
+
+Architecture
+Backend (FastAPI)
+javamentor-backend/
+├── app/
+│ ├── main.py # FastAPI entry point
+│ ├── database.py # PostgreSQL configuration
+│ ├── models/ # SQLAlchemy models
+│ ├── schemas/ # Pydantic schemas
+│ ├── routers/ # API endpoints
+│ ├── services/ # Business logic
+│ └── utils/ # Utilities
+
+Frontend (React)
+javamentor-frontend/
+├── src/
+│ ├── components/ # Reusable components
+│ ├── pages/ # Main pages
+│ ├── context/ # React contexts
+│ ├── services/ # API services
+│ ├── hooks/ # Custom hooks
+│ └── utils/ # Utilities and translations
+
+Technologies Used
+Backend
+
+FastAPI – Modern, fast web framework
+
+PostgreSQL – Relational database
+
+SQLAlchemy – Python ORM
+
+Pydantic – Data validation
+
+JWT – Secure authentication
+
+OpenAI API – Artificial intelligence (simulated for demo)
+
+Frontend
+
+React 18 – UI library with Concurrent Features
+
+Tailwind CSS – Utility-first CSS framework
+
+Framer Motion – Advanced animations
+
+React Router – Client-side navigation
+
+Axios – HTTP client
+
+Context API – Global state management
+
+Development Tools
+
+Docker – Containerization
+
+ESLint/Prettier – Code quality
+
+Git – Version control
+
+Installation
+Prerequisites
+
+Node.js 16+
+
+Python 3.9+
+
+PostgreSQL 13+
+
+Docker (optional)
+
+Backend Setup
+
+Clone the repository
+
+git clone https://github.com/your-username/javamentor.git
+cd javamentor/javamentor-backend
+
+Create a virtual environment
+
+python -m venv venv
+source venv/bin/activate # Linux/Mac
+
+# or
+
+venv\Scripts\activate # Windows
+
+Install dependencies
+
+pip install -r requirements.txt
+
+Database setup
+
+# Start PostgreSQL with Docker
+
+docker-compose up -d postgres
+
+# Or configure PostgreSQL manually
+
+# Create a database 'javamentor'
+
+Environment variables
+
+cp .env.example .env
+
+# Edit .env with your configurations
+
+Start the server
+
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+Frontend Setup
+
+Navigate to frontend
+
+cd ../javamentor-frontend
+
+Install dependencies
+
+npm install
+
+Start the app
+
+npm start
+
+App will be available at http://localhost:3000
+
+Project Structure
+Backend – Main Endpoints
+
+POST /api/auth/register – User registration
+
+POST /api/auth/login – User login
+
+GET /api/auth/me – User profile
+
+POST /api/chat/send – Send a message to the bot
+
+GET /api/chat/conversations – Fetch conversations
+
+GET /api/exercises – List exercises
+
+POST /api/exercises/seed – Seed exercises database
+
+Frontend – Main Pages
+
+/ – Landing page
+
+/login – Login page
+
+/register – Registration page
+
+/chat – Chat interface with JavaMentor
+
+/exercises – Exercise catalog
+
+/profile – User profile and stats
+
+Demo
+Demo Features
+
+Simulated authentication – Login with any username/password
+
+Smart AI assistant – Contextual responses based on keywords
+
+Multiple conversations – History and navigation between chats
+
+Interactive exercises – Filterable catalog with progress tracking
+
+Multilingual interface – Switch between FR/EN in real-time
+
+Test Data
+
+User: Any username
+
+Password: Any password (6+ characters)
+
+Exercises: 8 pre-configured from beginner to advanced
+
+Development
+Available Scripts
+
+Backend:
+
+uvicorn app.main:app --reload # Dev server
+python -m pytest # Unit tests
+black app/ # Code formatting
+flake8 app/ # Linting
+
+Frontend:
+
+npm start # Dev server
+npm run build # Production build
+npm test # Unit tests
+npm run lint # ESLint linting
+
+Component Architecture
+src/components/
+├── ui/ # Reusable UI components
+│ ├── Button.jsx # Button with variants & animations
+│ ├── Input.jsx # Input with visual validation
+│ └── LoadingSpinner.jsx
+├── auth/ # Authentication components
+│ ├── LoginForm.jsx
+│ └── RegisterForm.jsx
+├── chat/ # Chat interface
+│ └── MessageBubble.jsx
+└── pages/ # Main pages
+├── Home.jsx # Landing page
+├── Chat.jsx # Chat interface
+├── Exercises.jsx # Exercise catalog
+└── Profile.jsx # User profile
+
+Global State (Context API)
+
+AuthContext – User authentication management
+
+LanguageContext – FR/EN multilingual support
+
+Translation System
+// Usage in a component
+const { language } = useLanguage();
+const { t } = useTranslation(language);
+
+return <h1>{t('welcomeTitle')}</h1>;
+
+Design System
+Color Palette
+
+Primary: Orange → Red gradient (Java-inspired)
+
+Secondary: Blue → Purple gradient
+
+Background: Dark gradient with glassmorphism effects
+
+Accents: Bright colors for active states
+
+UI Components
+
+Consistent design system with Tailwind CSS
+
+Smooth animations via Framer Motion
+
+Glassmorphism and blur effects
+
+Mobile-first responsive design
+
+Metrics & Advanced Features
+Performance
+
+Automatic code splitting with React Router
+
+Optimized images and assets
+
+GPU-accelerated animations
+
+Lazy loading components
+
+Accessibility
+
+Full keyboard navigation
+
+Optimized color contrast
+
+Proper ARIA labels
+
+Screen reader support
+
+SEO & Meta
+
+Optimized meta tags
+
+Semantic HTML5 structure
+
+Readable, consistent URLs
+
+Future Enhancements
+
+Real OpenAI integration – Replace simulation with OpenAI API
+
+Integrated code editor – Monaco Editor for exercises
+
+Badge system – Advanced gamification
+
+Collaborative mode – Share solutions among users
+
+Automated testing – Full test suite
+
+Cloud deployment – Scalable infrastructure
+
+Contribution
+
+This project is designed as a demonstration of modern full-stack skills, combining:
+
+Robust backend architecture with FastAPI
+
+Modern UI with React
+
+Conversational AI integration
+
+Exceptional UX/UI design
+
+Professional development practices
+
+Built with passion to showcase excellence in modern full-stack development ⚡
