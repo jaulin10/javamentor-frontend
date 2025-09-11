@@ -3,39 +3,39 @@ import axios from "axios";
 const API_BASE_URL =
   process.env.REACT_APP_API_URL || "http://localhost:8000/api";
 
-// Création d'une instance Axios avec une base URL
+// Create an Axios instance with a base URL
 const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
-// Intercepteur pour ajouter automatiquement le token
+// Interceptor to automatically add the token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    console.log("🔍 Token récupéré:", token ? "Token présent" : "Aucun token");
+    console.log("🔍 Token retrieved:", token ? "Token present" : "No token");
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-      console.log("✅ Header Authorization ajouté");
+      console.log("✅ Authorization header added");
     } else {
-      console.log("❌ Aucun token trouvé dans localStorage");
+      console.log("❌ No token found in localStorage");
     }
 
-    console.log("📤 Headers finaux:", config.headers);
+    console.log("📤 Final headers:", config.headers);
     return config;
   },
   (error) => {
-    console.error("❌ Erreur dans l'intercepteur:", error);
+    console.error("❌ Error in interceptor:", error);
     return Promise.reject(error);
   }
 );
 
-// Intercepteur de réponse pour gérer les erreurs d'authentification
+// Response interceptor to handle authentication errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      console.log("🚨 Token expiré, redirection vers login");
+      console.log("🚨 Token expired, redirecting to login");
       localStorage.removeItem("token");
       window.location.href = "/login";
     }
@@ -50,11 +50,11 @@ export const authAPI = {
   getProfile: () => api.get("/auth/me"),
 };
 
-// Chat API - Version avec headers explicites pour débogage
+// Chat API - Version with explicit headers for debugging
 export const chatAPI = {
   sendMessage: (message, conversationId = null) => {
     const token = localStorage.getItem("token");
-    console.log("🔄 Envoi message avec token:", token ? "présent" : "absent");
+    console.log("🔄 Sending message with token:", token ? "present" : "absent");
 
     return api.post(
       "/chat/send",
@@ -87,15 +87,15 @@ export const exercisesAPI = {
       data: [
         {
           id: 1,
-          title: "Variables de base",
-          description: "Apprenez à déclarer et utiliser des variables en Java",
+          title: "Basic Variables",
+          description: "Learn how to declare and use variables in Java",
           difficulty: "beginner",
           topic: "variables",
         },
         {
           id: 2,
-          title: "Boucles for",
-          description: "Maîtrisez les boucles for en Java",
+          title: "For Loops",
+          description: "Master for loops in Java",
           difficulty: "beginner",
           topic: "loops",
         },
