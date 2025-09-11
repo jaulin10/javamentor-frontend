@@ -10,7 +10,7 @@ const Register = () => {
   const navigate = useNavigate();
   const { isAuthenticated, loading } = useAuth();
 
-  // Rediriger si déjà connecté
+  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/chat");
@@ -24,11 +24,7 @@ const Register = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <LoadingSpinner
-          size="lg"
-          color="white"
-          text="Vérification de la session..."
-        />
+        <LoadingSpinner size="lg" color="white" text="Checking session..." />
       </div>
     );
   }
@@ -45,14 +41,14 @@ const Register = () => {
       {/* Back button */}
       <motion.button
         onClick={() => navigate("/")}
-        className="absolute top-6 left-6 z-10 flex items-center space-x-2 text-white hover:text-gray-300 transition-colors"
+        className="absolute top-6 left-6 z-50 flex items-center space-x-2 text-white hover:text-gray-300 transition-colors"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
         whileHover={{ x: -5 }}
       >
         <ArrowLeft className="w-5 h-5" />
-        <span>Retour</span>
+        <span>Back</span>
       </motion.button>
 
       {/* Main content */}
@@ -74,10 +70,10 @@ const Register = () => {
               <Code className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">
-              Créer un compte
+              Create Account
             </h1>
             <p className="text-gray-400">
-              Rejoignez JavaMentor et commencez votre apprentissage
+              Join JavaMentor and start your learning journey
             </p>
           </motion.div>
 
@@ -87,19 +83,19 @@ const Register = () => {
           {/* Divider */}
           <div className="my-6 flex items-center">
             <div className="flex-1 border-t border-gray-600"></div>
-            <span className="px-4 text-gray-400 text-sm">ou</span>
+            <span className="px-4 text-gray-400 text-sm">or</span>
             <div className="flex-1 border-t border-gray-600"></div>
           </div>
 
           {/* Login link */}
           <div className="text-center">
             <p className="text-gray-400">
-              Déjà un compte ?{" "}
+              Already have an account?{" "}
               <Link
                 to="/login"
                 className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
               >
-                Se connecter
+                Sign in
               </Link>
             </p>
           </div>

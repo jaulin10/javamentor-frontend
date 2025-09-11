@@ -18,7 +18,7 @@ const RegisterForm = ({ onSuccess }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
 
-  // Calculer la force du mot de passe
+  // Calculate password strength
   useEffect(() => {
     const password = formData.password;
     let strength = 0;
@@ -52,29 +52,27 @@ const RegisterForm = ({ onSuccess }) => {
     const newErrors = {};
 
     if (!formData.username.trim()) {
-      newErrors.username = "Le nom d'utilisateur est requis";
+      newErrors.username = "Username is required";
     } else if (formData.username.length < 3) {
-      newErrors.username =
-        "Le nom d'utilisateur doit contenir au moins 3 caractères";
+      newErrors.username = "Username must be at least 3 characters long";
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "L'email est requis";
+      newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "L'email n'est pas valide";
+      newErrors.email = "Email is not valid";
     }
 
     if (!formData.password) {
-      newErrors.password = "Le mot de passe est requis";
+      newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
-      newErrors.password =
-        "Le mot de passe doit contenir au moins 6 caractères";
+      newErrors.password = "Password must be at least 6 characters long";
     }
 
     if (!formData.confirmPassword) {
-      newErrors.confirmPassword = "Veuillez confirmer votre mot de passe";
+      newErrors.confirmPassword = "Please confirm your password";
     } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Les mots de passe ne correspondent pas";
+      newErrors.confirmPassword = "Passwords do not match";
     }
 
     return newErrors;
@@ -127,13 +125,13 @@ const RegisterForm = ({ onSuccess }) => {
     switch (passwordStrength) {
       case 0:
       case 1:
-        return "Faible";
+        return "Weak";
       case 2:
-        return "Moyen";
+        return "Fair";
       case 3:
-        return "Fort";
+        return "Strong";
       case 4:
-        return "Très fort";
+        return "Very Strong";
       default:
         return "";
     }
@@ -159,10 +157,10 @@ const RegisterForm = ({ onSuccess }) => {
         )}
 
         <Input
-          label="Nom d'utilisateur"
+          label="Username"
           name="username"
           type="text"
-          placeholder="Choisissez un nom d'utilisateur"
+          placeholder="Choose a username"
           value={formData.username}
           onChange={handleChange}
           error={errors.username}
@@ -170,10 +168,10 @@ const RegisterForm = ({ onSuccess }) => {
         />
 
         <Input
-          label="Adresse email"
+          label="Email address"
           name="email"
           type="email"
-          placeholder="votre@email.com"
+          placeholder="your@email.com"
           value={formData.email}
           onChange={handleChange}
           error={errors.email}
@@ -182,10 +180,10 @@ const RegisterForm = ({ onSuccess }) => {
 
         <div>
           <Input
-            label="Mot de passe"
+            label="Password"
             name="password"
             type="password"
-            placeholder="Créez un mot de passe sécurisé"
+            placeholder="Create a secure password"
             value={formData.password}
             onChange={handleChange}
             error={errors.password}
@@ -216,10 +214,10 @@ const RegisterForm = ({ onSuccess }) => {
         </div>
 
         <Input
-          label="Confirmer le mot de passe"
+          label="Confirm password"
           name="confirmPassword"
           type="password"
-          placeholder="Confirmez votre mot de passe"
+          placeholder="Confirm your password"
           value={formData.confirmPassword}
           onChange={handleChange}
           error={errors.confirmPassword}
@@ -240,7 +238,7 @@ const RegisterForm = ({ onSuccess }) => {
           disabled={isSubmitting}
           className="w-full group"
         >
-          {isSubmitting ? "Création du compte..." : "Créer mon compte"}
+          {isSubmitting ? "Creating account..." : "Create my account"}
           {!isSubmitting && (
             <Sparkles className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform" />
           )}

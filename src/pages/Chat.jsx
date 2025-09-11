@@ -15,6 +15,8 @@ import {
   Plus,
   MessageCircle,
   Loader2,
+  Trash2,
+  MoreVertical,
 } from "lucide-react";
 
 const Chat = () => {
@@ -27,6 +29,7 @@ const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showDeleteMenu, setShowDeleteMenu] = useState(null);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
 
@@ -103,6 +106,63 @@ const Chat = () => {
 
     setConversations([welcomeConversation]);
     setCurrentConversationId("welcome");
+  };
+
+  // Delete conversation function
+  const handleDeleteConversation = async (conversationId, e) => {
+    e.stopPropagation(); // Prevent conversation selection
+
+    if (
+      conversationId === "welcome" ||
+      conversationId.toString().startsWith("new-")
+    ) {
+      // For local conversations, just remove from state
+      setConversations((prev) =>
+        prev.filter((conv) => conv.id !== conversationId)
+      );
+
+      // If deleting current conversation, switch to another one or create welcome
+      if (conversationId === currentConversationId) {
+        const remaining = conversations.filter(
+          (conv) => conv.id !== conversationId
+        );
+        if (remaining.length > 0) {
+          setCurrentConversationId(remaining[0].id);
+        } else {
+          createWelcomeConversation();
+        }
+      }
+
+      setShowDeleteMenu(null);
+      return;
+    }
+
+    try {
+      await chatAPI.deleteConversation(conversationId);
+
+      // Remove from local state
+      setConversations((prev) =>
+        prev.filter((conv) => conv.id !== conversationId)
+      );
+
+      // If deleting current conversation, switch to another one or create welcome
+      if (conversationId === currentConversationId) {
+        const remaining = conversations.filter(
+          (conv) => conv.id !== conversationId
+        );
+        if (remaining.length > 0) {
+          setCurrentConversationId(remaining[0].id);
+        } else {
+          createWelcomeConversation();
+        }
+      }
+
+      setShowDeleteMenu(null);
+      console.log("✅ Conversation deleted successfully");
+    } catch (error) {
+      console.error("❌ Error deleting conversation:", error);
+      // You could show a toast notification here
+    }
   };
 
   // Auto-scroll to bottom
@@ -260,6 +320,18 @@ const Chat = () => {
     setSidebarOpen(false);
   };
 
+  // Close delete menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setShowDeleteMenu(null);
+    };
+
+    if (showDeleteMenu) {
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
+    }
+  }, [showDeleteMenu]);
+
   return (
     <div className="h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex">
       {/* Sidebar */}
@@ -312,12 +384,12 @@ const Chat = () => {
               </div>
 
               {/* Conversations */}
-              <div className="flex-1 p-4">
+              <div className="flex-1 p-4 overflow-y-auto min-h-0">
                 <div className="space-y-2">
                   {conversations.map((conversation) => (
                     <motion.div
                       key={conversation.id}
-                      className={`p-3 rounded-lg border cursor-pointer transition-colors ${
+                      className={`relative group p-3 rounded-lg border cursor-pointer transition-colors ${
                         conversation.id === currentConversationId
                           ? "bg-white/20 border-white/30"
                           : "bg-white/10 border-white/20 hover:bg-white/15"
@@ -331,7 +403,7 @@ const Chat = () => {
                       onClick={() => setCurrentConversationId(conversation.id)}
                     >
                       <div className="flex items-center space-x-3">
-                        <MessageCircle className="w-4 h-4 text-gray-400" />
+                        <MessageCircle className="w-4 h-4 text-gray-400 flex-shrink-0" />
                         <div className="flex-1 min-w-0">
                           <p className="text-white text-sm font-medium truncate">
                             {conversation.title}
@@ -339,6 +411,47 @@ const Chat = () => {
                           <p className="text-gray-400 text-xs truncate">
                             {conversation.messages.length} messages
                           </p>
+                        </div>
+
+                        {/* Delete button */}
+                        <div className="relative">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 h-6 w-6 text-gray-400 hover:text-red-400 hover:bg-red-500/20"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setShowDeleteMenu(
+                                showDeleteMenu === conversation.id
+                                  ? null
+                                  : conversation.id
+                              );
+                            }}
+                          >
+                            <MoreVertical className="w-3 h-3" />
+                          </Button>
+
+                          {/* Delete confirmation menu */}
+                          {showDeleteMenu === conversation.id && (
+                            <motion.div
+                              className="absolute right-0 top-8 bg-white/20 backdrop-blur-lg border border-white/30 rounded-lg p-2 z-10 min-w-32"
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full text-red-400 hover:text-red-300 hover:bg-red-500/20 justify-start"
+                                onClick={(e) =>
+                                  handleDeleteConversation(conversation.id, e)
+                                }
+                              >
+                                <Trash2 className="w-3 h-3 mr-2" />
+                                Delete
+                              </Button>
+                            </motion.div>
+                          )}
                         </div>
                       </div>
                     </motion.div>

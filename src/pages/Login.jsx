@@ -10,10 +10,10 @@ const Login = () => {
   const navigate = useNavigate();
   const { isAuthenticated, loading } = useAuth();
 
-  // Rediriger si déjà connecté
+  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/chat");
+      navigate("/home");
     }
   }, [isAuthenticated, navigate]);
 
@@ -24,11 +24,7 @@ const Login = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <LoadingSpinner
-          size="lg"
-          color="white"
-          text="Vérification de la session..."
-        />
+        <LoadingSpinner size="lg" color="white" text="Checking session..." />
       </div>
     );
   }
@@ -44,15 +40,16 @@ const Login = () => {
 
       {/* Back button */}
       <motion.button
-        onClick={() => navigate("/")}
-        className="absolute top-6 left-6 z-10 flex items-center space-x-2 text-white hover:text-gray-300 transition-colors"
+        type="button"
+        onClick={() => navigate("/home")}
+        className="absolute top-6 left-6 z-50 flex items-center space-x-2 text-white hover:text-gray-300 transition-colors"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
         whileHover={{ x: -5 }}
       >
         <ArrowLeft className="w-5 h-5" />
-        <span>Retour</span>
+        <span>Back</span>
       </motion.button>
 
       {/* Main content */}
@@ -73,10 +70,8 @@ const Login = () => {
             <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Code className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-white mb-2">Connexion</h1>
-            <p className="text-gray-400">
-              Connectez-vous à votre compte JavaMentor
-            </p>
+            <h1 className="text-3xl font-bold text-white mb-2">Login</h1>
+            <p className="text-gray-400">Sign in to your JavaMentor account</p>
           </motion.div>
 
           {/* Form */}
@@ -85,19 +80,19 @@ const Login = () => {
           {/* Divider */}
           <div className="my-6 flex items-center">
             <div className="flex-1 border-t border-gray-600"></div>
-            <span className="px-4 text-gray-400 text-sm">ou</span>
+            <span className="px-4 text-gray-400 text-sm">or</span>
             <div className="flex-1 border-t border-gray-600"></div>
           </div>
 
           {/* Register link */}
           <div className="text-center">
             <p className="text-gray-400">
-              Pas encore de compte ?{" "}
+              Don't have an account?{" "}
               <Link
                 to="/register"
                 className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
               >
-                Créer un compte
+                Create account
               </Link>
             </p>
           </div>
@@ -110,8 +105,7 @@ const Login = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <p className="text-blue-300 text-sm text-center">
-              <strong>Démo :</strong> Utilisez n'importe quel nom d'utilisateur
-              et mot de passe
+              <strong>Demo:</strong> Use any username and password
             </p>
           </motion.div>
         </motion.div>

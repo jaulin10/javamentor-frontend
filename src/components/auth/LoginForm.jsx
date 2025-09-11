@@ -34,14 +34,13 @@ const LoginForm = ({ onSuccess }) => {
     const newErrors = {};
 
     if (!formData.username.trim()) {
-      newErrors.username = "Le nom d'utilisateur est requis";
+      newErrors.username = "Username is required";
     }
 
     if (!formData.password) {
-      newErrors.password = "Le mot de passe est requis";
+      newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
-      newErrors.password =
-        "Le mot de passe doit contenir au moins 6 caractères";
+      newErrors.password = "Password must be at least 6 characters long";
     }
 
     return newErrors;
@@ -90,10 +89,10 @@ const LoginForm = ({ onSuccess }) => {
         )}
 
         <Input
-          label="Nom d'utilisateur"
+          label="Username"
           name="username"
           type="text"
-          placeholder="Entrez votre nom d'utilisateur"
+          placeholder="Enter your username"
           value={formData.username}
           onChange={handleChange}
           error={errors.username}
@@ -101,10 +100,10 @@ const LoginForm = ({ onSuccess }) => {
         />
 
         <Input
-          label="Mot de passe"
+          label="Password"
           name="password"
           type="password"
-          placeholder="Entrez votre mot de passe"
+          placeholder="Enter your password"
           value={formData.password}
           onChange={handleChange}
           error={errors.password}
@@ -119,7 +118,7 @@ const LoginForm = ({ onSuccess }) => {
           disabled={isSubmitting}
           className="w-full group"
         >
-          {isSubmitting ? "Connexion en cours..." : "Se connecter"}
+          {isSubmitting ? "Signing in..." : "Sign in"}
           {!isSubmitting && (
             <Sparkles className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform" />
           )}
